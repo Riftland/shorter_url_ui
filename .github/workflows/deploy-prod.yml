@@ -1,0 +1,21 @@
+name: Deploy in Vercel (production)
+
+on:
+  push:
+    tags:
+      - "*"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: deploy in production
+        run: |
+          npx vercel --yes --prod \
+          -n ${{ secrets.PROJECT_NAME }} \
+          -t ${{ secrets.FRONTEND_TOKEN }} \
+          --scope ${{ secrets.SCOPE_ID }}
