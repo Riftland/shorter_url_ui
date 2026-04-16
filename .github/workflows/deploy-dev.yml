@@ -1,0 +1,21 @@
+name: Deploy in Vercel (staging)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+
+      - name: deploy in staging
+        run: | 
+          npx vercel --yes \
+          -n ${{ secrets.PROJECT_NAME }} \
+          -t ${{ secrets.FRONTEND_TOKEN }} \
+          --scope ${{ secrets.SCOPE_ID }}
